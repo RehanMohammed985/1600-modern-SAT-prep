@@ -1,6 +1,16 @@
 # 1600
 
-Guided SAT/ACT prep — adaptive sessions, mistake review, and AI tutoring. Built with **Next.js 15** and **Supabase**.
+**1600** is an open-source SAT/ACT study app that adapts to each student’s grade, goals, and weak skills. Practice in guided sessions, review mistakes with step-by-step explanations, and optional AI tutoring when you get a question wrong.
+
+Built with [Next.js 15](https://nextjs.org/) and [Supabase](https://supabase.com/).
+
+## Features
+
+- **Adaptive sessions** — phased study blocks tuned to skill level and study mode
+- **Onboarding** — grade, test track (SAT/ACT), goals, and timeline
+- **Mistake review** — why your answer was wrong, common traps, concepts, and visuals
+- **Optional AI tutoring** — Gemini or OpenRouter enhances explanations (cached and rate-limited)
+- **Question bank** — seeded questions plus a factory pipeline for new items
 
 ## How it works
 
@@ -14,7 +24,7 @@ flowchart TB
     SE["/session"]
   end
 
-  subgraph edge [Next.js on Vercel]
+  subgraph edge [Next.js app]
     MW["Middleware — auth + onboarding gate"]
     RSC["App Router pages + Server Actions"]
     AI["AI layer — Gemini / OpenRouter"]
@@ -42,7 +52,7 @@ flowchart TB
   RSC --> QF
 ```
 
-### Student journey (simplified)
+### Student journey
 
 ```mermaid
 sequenceDiagram
@@ -68,91 +78,163 @@ sequenceDiagram
   end
 ```
 
-## Local development
+## Prerequisites
+
+| Tool | Notes |
+|------|--------|
+| [Node.js](https://nodejs.org/) 18+ | For local development |
+| [Supabase](https://supabase.com/) account | Free tier is enough to try the app |
+| Git | To clone this repository |
+
+**Optional:** API key from [Google AI Studio](https://aistudio.google.com/apikey) (Gemini) or [OpenRouter](https://openrouter.ai/) for AI-enhanced wrong-answer explanations.
+
+## Getting started
+
+These steps assume you are running the app on your own machine against **your own** Supabase project. You will create credentials locally — nothing secret is stored in this repository.
+
+### 1. Clone and install
 
 ```bash
+git clone https://github.com/<owner>/<repo>.git
+cd <repo>
 npm install
-cp .env.local.example .env.local   # fill in keys
-npm run dev                        # http://127.0.0.1:3000
 ```
 
-If pages 404 or chunks break after many restarts:
+Replace `<owner>/<repo>` with this repository’s GitHub path after you fork or clone it.
+
+### 2. Configure environment variables
 
 ```bash
-npm run fix   # kills port 3000, clears .next, restarts dev
+cp .env.local.example .env.local
 ```
 
-**Do not run `npm run build` while `npm run dev` is running** — mixed `.next` artifacts cause 500 errors.
+Open `.env.local` and add your values. **Do not commit `.env.local`** — it is listed in `.gitignore`.
 
-## Supabase setup (once per project)
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Yes | Project URL from Supabase → **Settings → API** |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes | `anon` / public key from the same page |
+| `SUPABASE_SERVICE_ROLE_KEY` | Recommended | Service role key — allows signup without email confirmation when using server-side account creation |
+| `NEXT_PUBLIC_SITE_URL` | Yes (local) | Use `http://127.0.0.1:3000` for local development |
+| `GEMINI_API_KEY` | Optional | Enables AI tutoring via Google Gemini |
+| `OPENROUTER_API_KEY` | Optional | Enables AI tutoring via OpenRouter |
+| `AI_PROVIDER` | Optional | Set to `gemini` or `openrouter` when using AI |
+| `GEMINI_MODEL` / `OPENROUTER_MODEL` | Optional | Model names (see `.env.local.example` for examples) |
 
-In the [Supabase SQL Editor](https://supabase.com/dashboard), run in order:
+See `.env.local.example` for the full list and placeholder values.
 
-1. `supabase/schema.sql`
-2. `supabase/seed.sql`
-3. `supabase/complete_setup.sql` (if profile saves fail)
-4. `supabase/migrations/20250525120000_tutoring_experience.sql`
-5. `supabase/migrations/20250527120000_question_factory.sql`
-6. `supabase/fix_reading_passages.sql` (if reading passages are missing)
+### 3. Initialize the database
 
-**Auth:** Authentication → Providers → Email → turn **off** “Confirm email”.  
-Add `SUPABASE_SERVICE_ROLE_KEY` in `.env.local` (Project Settings → API) for instant signup without email confirmation.
+Create a new Supabase project, then open the **SQL Editor** and run the files below **in order** (copy/paste each file’s contents):
 
-**Auth redirect URLs** (Authentication → URL configuration):
+| Order | File | Purpose |
+|-------|------|---------|
+| 1 | `supabase/schema.sql` | Core tables, RLS, auth trigger |
+| 2 | `supabase/seed.sql` | Sample questions |
+| 3 | `supabase/migrations/20250525000000_onboarding_student_path.sql` | Onboarding fields |
+| 4 | `supabase/migrations/20250525120000_tutoring_experience.sql` | Tutoring / attempts metadata |
+| 5 | `supabase/migrations/20250526120000_intelligence.sql` | Adaptive intelligence tables |
+| 6 | `supabase/migrations/20250527120000_question_factory.sql` | Question factory + AI cache |
+| 7 | `supabase/migrations/20250530120000_core_learning_loop.sql` | Session learning loop |
+| 8 | `supabase/complete_setup.sql` | Extra grants — run if profile save fails with permission errors |
+| 9 | `supabase/fix_reading_passages.sql` | Repairs reading passages if any are missing |
 
-- Site URL: your production URL (e.g. `https://your-app.vercel.app`)
-- Redirect URLs: `http://127.0.0.1:3000/**`, `https://your-app.vercel.app/**`
+**Email auth (recommended for local testing):**
 
-## Deploy on Vercel
+1. Supabase → **Authentication → Providers → Email**
+2. Turn **off** “Confirm email” so new accounts can sign in immediately.
 
-```mermaid
-flowchart LR
-  GH[GitHub repo] -->|git push| GH
-  GH -->|Import project| Vercel
-  Vercel -->|Build: npm run build| Next[Next.js app]
-  Next -->|Server env vars| SB[Supabase]
-  Next -->|Optional AI keys| AI[Gemini / OpenRouter]
-  U[Users] --> Vercel
-```
+**Redirect URLs (local development only):**
 
-1. Push this repo to [github.com/RehanMohammed985/1600](https://github.com/RehanMohammed985/1600).
-2. In [Vercel](https://vercel.com) → **Add New Project** → import the repo.
-3. Framework preset: **Next.js** (default). Build command: `npm run build`. Output: default.
-4. Add **Environment Variables** (same as `.env.local.example`; never commit real keys):
+1. Supabase → **Authentication → URL configuration**
+2. Site URL: `http://127.0.0.1:3000`
+3. Redirect URLs: `http://127.0.0.1:3000/**`
 
-   | Variable | Required |
-   |----------|----------|
-   | `NEXT_PUBLIC_SUPABASE_URL` | Yes |
-   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes |
-   | `SUPABASE_SERVICE_ROLE_KEY` | Recommended (signup) |
-   | `NEXT_PUBLIC_SITE_URL` | Yes in production (`https://…vercel.app`) |
-   | `GEMINI_API_KEY` or `OPENROUTER_API_KEY` | Optional (tutoring AI) |
-   | `AI_PROVIDER` | Optional (`gemini` or `openrouter`) |
-
-5. Deploy. Update Supabase redirect URLs to your Vercel domain.
-
-## Environment variables
-
-See `.env.local.example`. Copy to `.env.local` for local dev. Set the same names in Vercel → Project → Settings → Environment Variables.
-
-## Routes
-
-| Path | Purpose |
-|------|---------|
-| `/` | Landing (redirects signed-in users) |
-| `/login` | Sign in / sign up |
-| `/onboarding` | First-time setup |
-| `/dashboard` | Home + start session |
-| `/session?id=` | Active study session |
-
-## Push to GitHub (when ready)
+### 4. Start the development server
 
 ```bash
-git remote add origin https://github.com/RehanMohammed985/1600.git
-git branch -M main
-git push -u origin main
+npm run dev
 ```
 
-## Agent map
+Open [http://127.0.0.1:3000](http://127.0.0.1:3000), create an account, complete onboarding, then start a practice session from the dashboard.
 
-See `AGENTS.md` for which files to touch per feature.
+## npm scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start the dev server (clears `.next` first for a clean cache) |
+| `npm run fix` | Stop port 3000, delete `.next`, and restart dev — use if pages 404 or assets break |
+| `npm run build` | Production build — **do not run while `npm run dev` is active** |
+| `npm run start` | Run a production build locally |
+| `npm run lint` | Run ESLint |
+
+## App routes
+
+| Path | Description |
+|------|-------------|
+| `/` | Marketing landing page; signed-in users are redirected to onboarding or the dashboard |
+| `/login` | Sign in or create an account |
+| `/onboarding` | First-time profile setup |
+| `/dashboard` | Home — view progress and start a session |
+| `/session?id=` | Active practice session |
+
+## With vs without AI keys
+
+| Capability | Supabase only | + AI keys |
+|------------|---------------|-----------|
+| Sign up / sign in | Yes | Yes |
+| Onboarding & dashboard | Yes | Yes |
+| Practice sessions | Yes | Yes |
+| Wrong-answer breakdown (rules + visuals) | Yes | Yes |
+| Personalized AI explanations | No | Yes (cached, rate-limited) |
+
+## Troubleshooting
+
+**Every page returns 404**
+
+- Run `npm run fix` and reload [http://127.0.0.1:3000](http://127.0.0.1:3000).
+- On macOS, if the terminal shows `EMFILE: too many open files`, close extra dev servers or restart your machine.
+
+**“Database not configured” on login**
+
+- Check `.env.local` has real `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` (not the placeholders from the example file).
+- Restart the dev server after changing env vars.
+
+**Profile or onboarding won’t save**
+
+- Run `supabase/complete_setup.sql` and `supabase/fix_permissions.sql` in the SQL Editor.
+- Confirm RLS policies exist from `supabase/schema.sql`.
+
+**Signup works but sign-in fails**
+
+- Disable “Confirm email” in Supabase, or add `SUPABASE_SERVICE_ROLE_KEY` for server-side account creation.
+- Ensure redirect URLs include `http://127.0.0.1:3000/**`.
+
+**Internal Server Error after running `npm run build`**
+
+- Stop the dev server, run `npm run fix`, and use only `npm run dev` during development.
+
+## Project layout
+
+| Path | Role |
+|------|------|
+| `src/app/` | Pages, server actions, API routes |
+| `src/components/` | UI (sessions, dashboard, login, review cards) |
+| `src/lib/` | Business logic, Supabase helpers, AI, question factory |
+| `supabase/` | SQL schema, seeds, and migrations |
+
+## Contributing
+
+Contributions are welcome. For a map of which files to edit for common tasks, see [`AGENTS.md`](./AGENTS.md).
+
+1. Fork the repository and create a branch.
+2. Make your changes and run `npm run lint`.
+3. Open a pull request with a short description of what you changed.
+
+Please do not open PRs that include API keys, `.env.local`, or other secrets.
+
+## Security
+
+- Never commit `.env.local` or real API keys. Use `.env.local.example` as a template only.
+- If a key is accidentally pushed, **revoke and rotate it** in the provider dashboard immediately.
+- The `SUPABASE_SERVICE_ROLE_KEY` bypasses Row Level Security — keep it server-side only (already enforced in this codebase; do not expose it to the browser).
