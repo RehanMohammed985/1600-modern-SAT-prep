@@ -115,7 +115,7 @@ flowchart LR
   U[Users] --> Vercel
 ```
 
-1. Push this repo to [github.com/RehanMohammed985/1600](https://github.com/RehanMohammed985/1600).
+1. Push this repo to [githubrepo].
 2. In [Vercel](https://vercel.com) → **Add New Project** → import the repo.
 3. Framework preset: **Next.js** (default). Build command: `npm run build`. Output: default.
 4. Add **Environment Variables** (same as `.env.local.example`; never commit real keys):
