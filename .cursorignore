@@ -1,0 +1,19 @@
+# Build & deps (huge, never need in context)
+node_modules/
+.next/
+out/
+dist/
+.data/
+
+# Lockfiles & caches
+package-lock.json
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Env & OS
+.env
+.env.local
+.DS_Store
+
+# SQL duplicated by complete_setup.sql
+supabase/migrations/
