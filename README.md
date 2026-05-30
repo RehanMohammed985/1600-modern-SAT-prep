@@ -146,9 +146,16 @@ Create a new Supabase project, then open the **SQL Editor** and run the files be
 
 **Redirect URLs (local development only):**
 
+<<<<<<< HEAD
 1. Supabase → **Authentication → URL configuration**
 2. Site URL: `http://127.0.0.1:3000`
 3. Redirect URLs: `http://127.0.0.1:3000/**`
+=======
+1. Push this repo to [githubrepo].
+2. In [Vercel](https://vercel.com) → **Add New Project** → import the repo.
+3. Framework preset: **Next.js** (default). Build command: `npm run build`. Output: default.
+4. Add **Environment Variables** (same as `.env.local.example`; never commit real keys):
+>>>>>>> ff231186399d79eced2a3d216e09e77251a2c159
 
 ### 4. Start the development server
 
