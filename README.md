@@ -7,17 +7,17 @@ Guided SAT/ACT prep — adaptive sessions, mistake review, and AI tutoring. Buil
 ```mermaid
 flowchart TB
   subgraph client [Browser]
-    LP[Landing /]
-    Login[/login]
-    OB[/onboarding]
-    DB[/dashboard]
-    SE[/session]
+    LP["Landing /"]
+    Login["/login"]
+    OB["/onboarding"]
+    DB["/dashboard"]
+    SE["/session"]
   end
 
   subgraph edge [Next.js on Vercel]
-    MW[Middleware — auth + onboarding gate]
-    RSC[App Router pages + Server Actions]
-    AI[AI layer — Gemini / OpenRouter]
+    MW["Middleware — auth + onboarding gate"]
+    RSC["App Router pages + Server Actions"]
+    AI["AI layer — Gemini / OpenRouter"]
     QF[Question Factory]
   end
 
