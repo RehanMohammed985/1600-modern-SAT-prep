@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { AlertCircle, ExternalLink, Flame, Sparkles, Target, TrendingUp, Timer } from "lucide-react";
+import { AlertCircle, BarChart3, ExternalLink, Flame, Sparkles, Target, TrendingUp, Timer } from "lucide-react";
 import { StartSessionButton } from "@/components/start-session-button";
 import { AppShell, PageHeader, SurfaceCard } from "@/components/app-shell";
 import { Badge } from "@/components/ui/badge";
@@ -142,6 +142,15 @@ export function DashboardView({
           </div>
         </SurfaceCard>
       ) : null}
+
+      <div className="mb-8">
+        <Link
+          href="/progress"
+          className="inline-flex items-center gap-2 rounded-full bg-[#111111] px-5 py-2.5 text-sm font-medium text-white hover:bg-black/90"
+        >
+          Detailed progress <BarChart3 className="h-4 w-4" />
+        </Link>
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <SurfaceCard>

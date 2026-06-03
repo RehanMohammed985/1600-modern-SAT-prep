@@ -78,6 +78,7 @@ export type TutoringReview = {
   mistakeType: MistakeType;
   solutionSteps: string[];
   workedExample: string[];
+  passageEvidence?: { text: string } | null;
 };
 
 export type TutoringReviewInput = {
@@ -97,7 +98,7 @@ export type TutoringReviewInput = {
     | "mistakeTypes"
     | "estimatedTime"
     | "commonMistakeExplanation"
-  >;
+  > & { passageText?: string | null };
   selectedAnswer: string;
   mistakeType?: MistakeType | null;
   timeTakenSeconds?: number;

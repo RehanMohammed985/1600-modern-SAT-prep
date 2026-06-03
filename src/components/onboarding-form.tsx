@@ -12,7 +12,6 @@ import {
   defaultTargetForGrade,
   gradePathFor,
   SAT_SIGNUP_URL,
-  ACT_SIGNUP_URL,
   satExplainerShort,
   SIGNUP_STATUS_OPTIONS,
   TIMELINE_OPTIONS,
@@ -46,7 +45,6 @@ const EXPERIENCE_OPTIONS: {
 
 const STEPS = [
   "Grade & comfort",
-  "Test type",
   "Experience",
   "Goals",
   "Test signup",
@@ -57,7 +55,7 @@ export function OnboardingForm() {
   const [step, setStep] = useState(0);
   const [grade, setGrade] = useState<Grade>("11th");
   const [comfort, setComfort] = useState<ComfortLevel | null>(null);
-  const [testTrack, setTestTrack] = useState<TestTrack>("undecided");
+  const [testTrack] = useState<TestTrack>("sat");
   const [experience, setExperience] = useState<SatExperience | null>(null);
   const [signupStatus, setSignupStatus] = useState<TestSignupStatus | null>(null);
   const [timeline, setTimeline] = useState<TestTimeline>("not_sure");
@@ -72,14 +70,13 @@ export function OnboardingForm() {
 
   const isBeginner = experience === "never" || comfort === "lost" || comfort === "unsure";
   const showCurrentScore = experience === "official" || experience === "practice";
-  const signupUrl = testTrack === "act" ? ACT_SIGNUP_URL : SAT_SIGNUP_URL;
+  const signupUrl = SAT_SIGNUP_URL;
   const pathPreview = gradePathFor(grade);
 
   const canContinue = [
     comfort != null,
+    experience != null,
     true,
-    experience != null,
-    experience != null,
     signupStatus != null,
     true,
   ];
@@ -87,7 +84,6 @@ export function OnboardingForm() {
   const stepTitle = useMemo(() => {
     const titles = [
       "Let's get to know you",
-      "SAT, ACT, or not sure yet?",
       "Your test experience",
       isBeginner ? "Your starting path" : "Your goals (optional scores)",
       "Test signup",
@@ -98,8 +94,13 @@ export function OnboardingForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (step < STEPS.length - 1) return;
     if (comfort == null || experience == null || signupStatus == null) {
       setSaveError("Finish each step, then try again.");
+      return;
+    }
+    if (step !== STEPS.length - 1) {
+      setSaveError("Please complete the study time step first.");
       return;
     }
 
@@ -224,31 +225,8 @@ export function OnboardingForm() {
           )}
 
           {step === 1 && (
-            <div className="mt-6 flex flex-wrap gap-2">
-              {(
-                [
-                  ["sat", "SAT"],
-                  ["act", "ACT"],
-                  ["undecided", "Not sure yet"],
-                ] as const
-              ).map(([val, label]) => (
-                <button
-                  key={val}
-                  type="button"
-                  onClick={() => setTestTrack(val)}
-                  className={cn(
-                    "rounded-full px-4 py-2.5 text-sm font-medium",
-                    testTrack === val ? "bg-[#111111] text-white" : "bg-black/5 text-black/55"
-                  )}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {step === 2 && (
             <div className="mt-6 space-y-3">
+              <p className="text-sm text-black/55">You're prepping for the SAT — we'll tailor everything to it.</p>
               {EXPERIENCE_OPTIONS.map((opt) => (
                 <button
                   key={opt.value}
@@ -273,7 +251,7 @@ export function OnboardingForm() {
             </div>
           )}
 
-          {step === 3 && (
+          {step === 2 && (
             <div className="mt-6 space-y-6">
               {isBeginner ? (
                 <div className="rounded-2xl border border-[#FF7A3D]/20 bg-[#FFF8F3] p-5">
@@ -334,7 +312,7 @@ export function OnboardingForm() {
             </div>
           )}
 
-          {step === 4 && (
+          {step === 3 && (
             <div className="mt-6 space-y-6">
               <div className="space-y-2">
                 {SIGNUP_STATUS_OPTIONS.map((opt) => (
@@ -395,7 +373,7 @@ export function OnboardingForm() {
             </div>
           )}
 
-          {step === 5 && (
+          {step === 4 && (
             <div className="mt-6 space-y-6">
               <div>
                 <Label className="mb-3 block">Study time per day</Label>

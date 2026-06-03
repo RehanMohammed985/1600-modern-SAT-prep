@@ -15,7 +15,7 @@ export function prioritizeFactoryQuestions(questions: Question[]): Question[] {
 export async function supplyQuestionsForSkill(
   skill: string,
   difficulty: QuestionBlueprint["difficulty"] = 2,
-  minCount = 2
+  minCount = 5
 ): Promise<Question[]> {
   return ensureSkillQuestionBank(skill, difficulty, minCount);
 }

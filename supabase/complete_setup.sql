@@ -6,7 +6,7 @@ alter table public.profiles
   add column if not exists sat_experience text
     check (sat_experience in ('never', 'practice', 'official')),
   add column if not exists test_track text
-    check (test_track in ('sat', 'act', 'undecided')),
+    check (test_track in ('sat', 'undecided')),
   add column if not exists registered_for_test boolean,
   add column if not exists test_timeline text
     check (test_timeline in ('not_sure', 'within_3_months', 'within_6_months', 'this_year', 'next_year')),

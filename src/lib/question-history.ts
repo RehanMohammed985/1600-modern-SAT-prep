@@ -11,8 +11,9 @@ export type QuestionHistory = {
   sessionQuestionIds: Set<string>;
 };
 
-const DEFAULT_RECENT_LIMIT = 80;
+const DEFAULT_RECENT_LIMIT = 120;
 const RECENT_SESSION_ATTEMPTS = 40;
+const MAX_SEEN_BEFORE_EXCLUSION = 4;
 
 export function buildQuestionHistory(
   attempts: Attempt[],
@@ -53,12 +54,18 @@ export function freshnessScore(questionId: string, history: QuestionHistory): nu
   const lastSeen = history.lastSeenAt.get(questionId);
   if (lastSeen) {
     const hours = (Date.now() - new Date(lastSeen).getTime()) / 3_600_000;
-    if (hours < 24) recencyPenalty = 250;
-    else if (hours < 72) recencyPenalty = 100;
-    else if (hours < 168) recencyPenalty = 40;
+    if (hours < 24) recencyPenalty = 500;
+    else if (hours < 72) recencyPenalty = 250;
+    else if (hours < 168) recencyPenalty = 100;
+    else if (hours < 720) recencyPenalty = 40;
   }
 
-  return inSession + recent + recencyPenalty + seen * 30;
+  return inSession + recent + recencyPenalty + seen * 100;
+}
+
+export function isExcludedFromSelection(questionId: string, history: QuestionHistory): boolean {
+  const seen = history.seenCount.get(questionId) ?? 0;
+  return seen >= MAX_SEEN_BEFORE_EXCLUSION;
 }
 
 /** Prefer unseen questions; deprioritize recently seen across sessions */

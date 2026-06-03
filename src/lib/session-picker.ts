@@ -1,4 +1,4 @@
-import type { Question } from "./types";
+import type { Attempt, Question } from "./types";
 import type { QuestionHistory } from "./question-history";
 import { pickVariation, rankByFreshness, rankForSkillPractice } from "./question-history";
 import type { GradeRigor } from "./grade-rigor";
@@ -7,11 +7,17 @@ import { phaseCountsForSession, type PhaseCounts } from "./session-length";
 import { adaptiveDifficultyForScore } from "./intelligence/question-supply";
 import type { SkillMetrics } from "./intelligence/skill-score";
 import {
+  estimateTheta,
+  selectBestItem,
+  type ItemParams,
+} from "./intelligence/item-response";
+import {
   isPlayableReadingQuestion,
   passageGroupId,
   pickReadingSet,
   prepareSessionBank,
 } from "./reading-bank";
+import { isExcludedFromSelection } from "./question-history";
 
 function shuffle<T>(arr: T[]): T[] {
   const copy = [...arr];
@@ -48,6 +54,7 @@ function pickUnique(
   for (const q of ranked) {
     if (used.has(q.id)) continue;
     if (history.sessionQuestionIds.has(q.id)) continue;
+    if (isExcludedFromSelection(q.id, history)) continue;
 
     if (q.section === "reading") {
       if (!q.id.startsWith("reading-set-")) continue;
@@ -58,7 +65,8 @@ function pickUnique(
           s.section === "reading" &&
           passageGroupId(s) === group &&
           !used.has(s.id) &&
-          !history.sessionQuestionIds.has(s.id)
+          !history.sessionQuestionIds.has(s.id) &&
+          !isExcludedFromSelection(s.id, history)
       );
       if (siblings.length > 1) {
         for (const s of siblings.slice(0, 2)) {
@@ -76,7 +84,8 @@ function pickUnique(
   }
 
   if (picked.length < count) {
-    for (const q of shuffle(ranked)) {
+    const fallback = shuffle(ranked.filter((q) => !isExcludedFromSelection(q.id, history)));
+    for (const q of fallback) {
       if (picked.length >= count) break;
       if (used.has(q.id)) continue;
       if (history.recentQuestionIds.has(q.id) && history.seenCount.get(q.id)) {
@@ -134,6 +143,80 @@ function pickPhaseQuestions(
 
 export { prepareSessionBank };
 
+function irtRankedQuestions(
+  pool: Question[],
+  count: number,
+  used: Set<string>,
+  history: QuestionHistory,
+  theta: number | null,
+  attempts: Attempt[],
+  recentIds: Set<string>,
+  skillTarget?: string
+): Question[] {
+  const picked: Question[] = [];
+
+  if (theta == null || attempts.length < 3) {
+    const ranked = rankByFreshness(pool, history);
+    for (const q of ranked) {
+      if (picked.length >= count) break;
+      if (used.has(q.id)) continue;
+      if (isExcludedFromSelection(q.id, history)) continue;
+      picked.push(q);
+      used.add(q.id);
+    }
+    return picked;
+  }
+
+  const items = new Map<string, ItemParams>();
+  const questionMap = new Map<string, Question>();
+
+  for (const q of pool) {
+    questionMap.set(q.id, q);
+    const defaultDiff = q.difficulty / 5;
+    items.set(q.id, {
+      questionId: q.id,
+      discrimination: 0.8,
+      difficulty: defaultDiff,
+      guessingParam: q.section === "math" ? 0.2 : 0.25,
+    });
+  }
+
+  const available: [string, ItemParams][] = [];
+  for (const [id, item] of items) {
+    if (used.has(id)) continue;
+    if (recentIds.has(id)) continue;
+    if (isExcludedFromSelection(id, history)) continue;
+    if (skillTarget) {
+      const q = questionMap.get(id);
+      if (q && q.skill !== skillTarget && q.skill_tag !== skillTarget) continue;
+    }
+    available.push([id, item]);
+  }
+
+  const selected = selectBestItem(theta, available, recentIds, skillTarget, questionMap);
+  if (selected) {
+    const q = questionMap.get(selected.questionId);
+    if (q && !used.has(q.id)) {
+      picked.push(q);
+      used.add(q.id);
+    }
+  }
+
+  const remaining = count - picked.length;
+  if (remaining > 0) {
+    const ranked = rankByFreshness(pool, history);
+    for (const q of ranked) {
+      if (picked.length >= count) break;
+      if (used.has(q.id)) continue;
+      if (isExcludedFromSelection(q.id, history)) continue;
+      picked.push(q);
+      used.add(q.id);
+    }
+  }
+
+  return picked.slice(0, count);
+}
+
 export type SessionPlanOptions = {
   slowMode?: boolean;
   timingIssues?: boolean;
@@ -142,6 +225,8 @@ export type SessionPlanOptions = {
   gradeRigor?: GradeRigor;
   skillMetrics?: SkillMetrics[];
   focusSkillMetric?: SkillMetrics | null;
+  attempts?: Attempt[];
+  theta?: number | null;
 };
 
 function buildMistakeReviewPool(
@@ -211,6 +296,10 @@ export function buildSmartSessionPlan(
     focusDiff.max = Math.max(diff.min, focusDiff.max - 1);
   }
 
+  const theta = options?.theta ?? null;
+  const attempts = options?.attempts ?? [];
+  const recentIds = history.recentQuestionIds;
+
   const includeReading = options?.gradeRigor?.includeReading ?? true;
   const allowTimed = options?.gradeRigor?.allowTimed ?? true;
   const mixedCount = allowTimed ? counts.mixed : counts.mixed + counts.timed;
@@ -234,7 +323,16 @@ export function buildSmartSessionPlan(
   const focus =
     focusPool.length &&
     focusPool.some((q) => q.section === "math" || isPlayableReadingQuestion(q))
-      ? pickUnique(focusPool, counts.focus, used, focusDiff.min, focusDiff.max, history, workingBank)
+      ? irtRankedQuestions(
+          focusPool,
+          counts.focus,
+          used,
+          history,
+          theta,
+          attempts,
+          recentIds,
+          focusSkill ?? undefined
+        )
       : pickPhaseQuestions(
           workingBank,
           counts.focus,

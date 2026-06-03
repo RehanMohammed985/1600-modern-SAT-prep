@@ -122,6 +122,8 @@ export function buildTutoringReview(input: TutoringReviewInput): TutoringReview 
     input.question.conceptExplanation ??
     "Apply the core rule for this skill carefully.";
 
+  const passageText = input.question.passageText ?? null;
+
   const breakdown = buildTutoringBreakdown({
     questionText: input.question.questionText,
     explanation: input.question.explanation,
@@ -136,6 +138,26 @@ export function buildTutoringReview(input: TutoringReviewInput): TutoringReview 
     skill: input.question.skill,
   });
 
+  let passageEvidence: { text: string } | null = null;
+  if (input.question.section === "reading" && passageText) {
+    const explanationFirstSentence = input.question.explanation.split(/(?<=[.!?])\s+/)[0] ?? "";
+    const words = explanationFirstSentence.replace(/[^a-zA-Z\s]/g, "").split(/\s+/).filter((w) => w.length > 4);
+    let bestMatch: string | null = null;
+    for (const word of words) {
+      const sentences = passageText.split(/(?<=[.!?])\s+/);
+      for (const sentence of sentences) {
+        if (sentence.toLowerCase().includes(word.toLowerCase())) {
+          if (!bestMatch || sentence.length < bestMatch.length) {
+            bestMatch = sentence;
+          }
+        }
+      }
+    }
+    if (bestMatch && bestMatch.length < 300) {
+      passageEvidence = { text: bestMatch };
+    }
+  }
+
   return {
     whyWrong: breakdown.whyWrong,
     commonMistake: breakdown.commonMistake,
@@ -147,6 +169,7 @@ export function buildTutoringReview(input: TutoringReviewInput): TutoringReview 
     mistakeType,
     solutionSteps: breakdown.microSteps,
     workedExample: breakdown.workedExample,
+    passageEvidence,
   };
 }
 
@@ -180,6 +203,7 @@ export async function enhanceTutoringReviewWithAi(
     const parsed = JSON.parse(extractJsonObject(raw)) as Partial<TutoringReview> & {
       solutionSteps?: string[];
       workedExample?: string[];
+      passageEvidence?: { text: string } | null;
     };
     const aiSteps = Array.isArray(parsed.solutionSteps)
       ? parsed.solutionSteps.map(String).filter(Boolean)
@@ -197,6 +221,7 @@ export async function enhanceTutoringReviewWithAi(
       practiceNext: parsed.practiceNext?.trim() || base.practiceNext,
       solutionSteps: aiSteps?.length ? aiSteps : base.solutionSteps,
       workedExample: aiWorked?.length ? aiWorked : base.workedExample,
+      passageEvidence: parsed.passageEvidence ?? base.passageEvidence,
     };
   } catch {
     return base;

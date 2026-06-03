@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { advanceSessionPhase, submitAttempt, type SubmitAttemptResult } from "@/app/actions";
@@ -78,6 +78,7 @@ export function SessionRunner({
   const [blockSeconds, setBlockSeconds] = useState(0);
   const [inBreak, setInBreak] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const advancingRef = useRef(false);
   const [phaseError, setPhaseError] = useState<string | null>(null);
   const [answerError, setAnswerError] = useState<string | null>(null);
   const [inArena, setInArena] = useState(false);
@@ -125,33 +126,33 @@ export function SessionRunner({
   }, [phase, inBreak]);
 
   const goToNextPhase = useCallback(async () => {
+    if (advancingRef.current) return;
+    advancingRef.current = true;
     setSubmitting(true);
     setPhaseError(null);
     try {
       const result = await advanceSessionPhase(sessionId);
       if (result.error) {
         setPhaseError(result.error);
+        advancingRef.current = false;
         setSubmitting(false);
         return;
       }
-      if (result.nextPhase === "complete") {
-        setSubmitting(false);
-        router.refresh();
-        return;
-      }
+      advancingRef.current = false;
       setSubmitting(false);
       router.refresh();
     } catch {
       setPhaseError("Could not load the next part. Try again.");
+      advancingRef.current = false;
       setSubmitting(false);
     }
   }, [router, sessionId]);
 
   useEffect(() => {
-    if (phase === "complete" || phase === "takeaway" || inBreak || totalInPhase > 0 || submitting)
+    if (phase === "complete" || phase === "takeaway" || inBreak || totalInPhase > 0 || advancingRef.current)
       return;
     void goToNextPhase();
-  }, [phase, totalInPhase, submitting, inBreak, goToNextPhase]);
+  }, [phase, totalInPhase, inBreak, goToNextPhase]);
 
   const skillLabel = question
     ? SKILL_LABELS[question.skill] ?? formatSkillTag(question.skill)
@@ -294,10 +295,21 @@ export function SessionRunner({
             <Button
               type="button"
               disabled={submitting}
-              onClick={() => void goToNextPhase()}
+              onClick={() => {
+                if (advancingRef.current) return;
+                void goToNextPhase();
+              }}
               className="rounded-full bg-[#111111] px-6 text-white hover:bg-black/90"
             >
               {submitting ? "Please wait…" : "Continue"}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => window.location.reload()}
+              className="rounded-full border-black/10"
+            >
+              Refresh page
             </Button>
             <Button asChild variant="outline" className="rounded-full border-black/10">
               <Link href="/dashboard">Exit to dashboard</Link>
@@ -576,6 +588,7 @@ export function SessionRunner({
                     : "Next block"
               }
               submitting={submitting}
+              passageText={question.passage?.passageText ?? null}
             />
           )}
         </div>

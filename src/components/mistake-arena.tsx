@@ -62,6 +62,7 @@ export function MistakeArena({
         difficulty: sourceQuestion.difficulty,
         mistakeTypes: sourceQuestion.mistakeTypes,
         estimatedTime: sourceQuestion.estimatedTime,
+        passageText: sourceQuestion.passage?.passageText ?? null,
       },
       selectedAnswer: feedback.selectedAnswer,
       mistakeType: feedback.mistakeType,
@@ -143,6 +144,7 @@ export function MistakeArena({
           section={sourceQuestion.section}
           questionText={sourceQuestion.questionText}
           formulaLatex={sourceQuestion.formulaLatex}
+          passageText={sourceQuestion.passage?.passageText ?? null}
         />
 
         <Button

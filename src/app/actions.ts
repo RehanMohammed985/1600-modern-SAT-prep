@@ -22,6 +22,12 @@ import {
   recommendedSessionLabel,
 } from "@/lib/recommendations";
 import { mapAttemptRow, mapQuestionRow } from "@/lib/question-map";
+import { buildSkillStateFromAttempts } from "@/lib/intelligence/knowledge-tracing";
+import { buildStudentIntelligence, getIntelligenceSummary } from "@/lib/intelligence/integration";
+import { estimateScoreFromStats, predictScore, scoreGoalLabel, daysToTarget } from "@/lib/intelligence/score-prediction";
+import { buildMistakePatterns, detectPatternClusters } from "@/lib/intelligence/mistake-patterns";
+import { buildReviewCardFromAttempts, getOverdueCards } from "@/lib/intelligence/spaced-repetition";
+import { generateWeeklyPlan } from "@/lib/intelligence/study-planner";
 import {
   filterUuidIds,
   phasePlanHasInvalidIds,
@@ -36,6 +42,8 @@ import { hasSupabaseConfig } from "@/lib/env";
 import { actionErrorMessage, isNextRedirect, rethrowFrameworkError } from "@/lib/safe-action";
 import { logServerError } from "@/lib/server-log";
 import { isDatabaseQuestionId } from "@/lib/utils";
+import type { StudentIntelligence } from "@/lib/intelligence/integration";
+import type { ScorePrediction } from "@/lib/intelligence/score-prediction";
 import type {
   ConfidenceLevel,
   MistakeType,
@@ -227,6 +235,7 @@ export async function startSession(): Promise<{ sessionId?: string; error?: stri
         studyMinutes: mappedProfile?.study_minutes_per_day,
         history,
         gradeRigor,
+        attempts: mappedAttempts,
       }
     );
 
@@ -585,6 +594,8 @@ export async function getDashboardData(): Promise<{
   recommendedSessionLabel: string;
   nextStudy: string;
   learningPhaseLabel: string | null;
+  intelligence: StudentIntelligence | null;
+  scorePrediction: ScorePrediction | null;
 } | null> {
   try {
     if (!hasSupabaseConfig()) {
@@ -605,6 +616,8 @@ export async function getDashboardData(): Promise<{
         recommendedSessionLabel: "Guided study session",
         nextStudy: "Set up Supabase to begin studying.",
         learningPhaseLabel: null,
+        intelligence: null,
+        scorePrediction: null,
       };
     }
 
@@ -709,6 +722,15 @@ export async function getDashboardData(): Promise<{
           )
         : getNextStudyRecommendationIntelligent(mappedAttempts, questionsById),
       learningPhaseLabel: rigor.trackLabel,
+      intelligence: mappedAttempts.length > 0 ? buildStudentIntelligence(mappedAttempts, allQuestions, mappedProfile) : null,
+      scorePrediction: mappedAttempts.length > 0 ? predictScore(metrics.map(m => ({
+        skillTag: m.skill_tag,
+        pMastered: m.skillScore,
+        pLearn: 0.15, pGuess: 0.15, pSlip: 0.1,
+        opportunities: m.attempts,
+        consecutiveCorrect: m.correct,
+        lastAttemptAt: null,
+      })), mappedProfile, metrics) : null,
     };
   } catch (error) {
     rethrowFrameworkError(error);
@@ -730,6 +752,8 @@ export async function getDashboardData(): Promise<{
       recommendedSessionLabel: "Guided study session",
       nextStudy: "Something went wrong loading your dashboard.",
       learningPhaseLabel: null,
+      intelligence: null,
+      scorePrediction: null,
     };
   }
 }
@@ -852,5 +876,295 @@ export async function getSessionData(sessionId: string) {
     rethrowFrameworkError(error);
     logServerError("getSessionData", error, { sessionId });
     return { error: actionErrorMessage(error, "Could not load session.") };
+  }
+}
+
+export async function getIntelligenceData(): Promise<{
+  error?: string;
+  intelligence?: Awaited<ReturnType<typeof buildStudentIntelligence>>;
+  summary?: ReturnType<typeof getIntelligenceSummary>;
+  scoreGoal?: { label: string; days: number | null };
+} | null> {
+  try {
+    if (!hasSupabaseConfig()) return { error: "Database not configured." };
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
+    const [{ data: profile }, { data: attempts }, { data: questions }] = await Promise.all([
+      supabase.from("profiles").select("*").eq("id", user.id).maybeSingle(),
+      supabase.from("attempts").select("*").eq("student_id", user.id).order("created_at", { ascending: false }).limit(500),
+      supabase.from("questions").select("*"),
+    ]);
+
+    const mappedProfile = profile ? mapProfileRow(profile as Record<string, unknown>) : null;
+    const mappedAttempts = (attempts ?? []).map((a) => mapAttemptRow(a as Record<string, unknown>));
+    const allQuestions = (questions ?? []).map(mapQuestion);
+
+    const intelligence = buildStudentIntelligence(mappedAttempts, allQuestions, mappedProfile);
+    const summary = getIntelligenceSummary(intelligence);
+
+    const target = mappedProfile?.target_score ?? 1200;
+    const days = daysToTarget(intelligence.scorePrediction, target);
+    const scoreGoal = {
+      label: scoreGoalLabel(intelligence.scorePrediction.current, target, days),
+      days,
+    };
+
+    return { intelligence, summary, scoreGoal };
+  } catch (error) {
+    rethrowFrameworkError(error);
+    logServerError("getIntelligenceData", error);
+    return { error: "Could not load intelligence data." };
+  }
+}
+
+export async function getProgressHistory(): Promise<{
+  error?: string;
+  history?: { date: string; predicted: number; math: number; readingWriting: number }[];
+} | null> {
+  try {
+    if (!hasSupabaseConfig()) return { error: "Database not configured." };
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
+    const { data: predictions } = await supabase
+      .from("score_predictions")
+      .select("*")
+      .eq("student_id", user.id)
+      .order("prediction_date", { ascending: true })
+      .limit(60);
+
+    return {
+      history: (predictions ?? []).map((p: Record<string, unknown>) => ({
+        date: String(p.prediction_date),
+        predicted: Number(p.predicted_score),
+        math: Number(p.predicted_math),
+        readingWriting: Number(p.predicted_reading_writing),
+      })),
+    };
+  } catch (error) {
+    rethrowFrameworkError(error);
+    logServerError("getProgressHistory", error);
+    return { error: "Could not load progress history." };
+  }
+}
+
+export async function saveScorePrediction(): Promise<{ error?: string }> {
+  try {
+    if (!hasSupabaseConfig()) return { error: "Database not configured." };
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { error: "Please sign in." };
+
+    const { data: attempts } = await supabase
+      .from("attempts")
+      .select("*")
+      .eq("student_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(200);
+
+    const { data: questions } = await supabase.from("questions").select("*");
+    const mapped = (attempts ?? []).map((a) => mapAttemptRow(a as Record<string, unknown>));
+    const allQuestions = (questions ?? []).map(mapQuestion);
+    const metrics = computeSkillIntelligence(mapped, new Map(allQuestions.map((q) => [q.id, q])));
+
+    const prediction = estimateScoreFromStats(null, metrics);
+
+    await supabase.from("score_predictions").insert({
+      student_id: user.id,
+      predicted_score: prediction.current,
+      predicted_math: prediction.breakdown.math,
+      predicted_reading_writing: prediction.breakdown.readingWriting,
+      confidence: prediction.confidence,
+    });
+
+    return {};
+  } catch (error) {
+    rethrowFrameworkError(error);
+    logServerError("saveScorePrediction", error);
+    return { error: "Could not save prediction." };
+  }
+}
+
+export async function syncSkillStates(): Promise<{ error?: string }> {
+  try {
+    if (!hasSupabaseConfig()) return { error: "Database not configured." };
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { error: "Please sign in." };
+
+    const { data: existingStates } = await supabase
+      .from("skill_states")
+      .select("*")
+      .eq("student_id", user.id);
+
+    const existingMap = new Map((existingStates ?? []).map((s: Record<string, unknown>) => [
+      String(s.skill_tag),
+      s as Record<string, unknown>,
+    ]));
+
+    const { data: attempts } = await supabase
+      .from("attempts")
+      .select("*")
+      .eq("student_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(300);
+
+    const { data: questions } = await supabase.from("questions").select("*");
+    const mappedAttempts = (attempts ?? []).map((a) => mapAttemptRow(a as Record<string, unknown>));
+    const allQuestions = (questions ?? []).map(mapQuestion);
+    const questionsById = new Map(allQuestions.map((q) => [q.id, q]));
+
+    const bySkill = new Map<string, Record<string, unknown>[]>();
+    for (const a of (attempts ?? []) as Record<string, unknown>[]) {
+      const q = questionsById.get(String(a.question_id));
+      const skill = q?.skill ?? q?.skill_tag ?? "general";
+      const list = bySkill.get(skill) ?? [];
+      list.push(a);
+      bySkill.set(skill, list);
+    }
+
+    for (const [skillTag, skillAttempts] of bySkill) {
+      const existing = existingMap.get(skillTag) as Record<string, unknown> | undefined;
+      const { state } = buildSkillStateFromAttempts(
+        skillTag,
+        skillAttempts.map((a) => mapAttemptRow(a as Record<string, unknown>)),
+        existing ? {
+          skillTag,
+          pMastered: Number(existing.p_mastered),
+          pLearn: Number(existing.p_learn),
+          pGuess: Number(existing.p_guess),
+          pSlip: Number(existing.p_slip),
+          opportunities: Number(existing.opportunities),
+          consecutiveCorrect: Number(existing.consecutive_correct),
+          lastAttemptAt: existing.last_attempt_at ? String(existing.last_attempt_at) : null,
+        } : null
+      );
+
+      await supabase.from("skill_states").upsert({
+        student_id: user.id,
+        skill_tag: skillTag,
+        p_mastered: state.pMastered,
+        p_learn: state.pLearn,
+        p_guess: state.pGuess,
+        p_slip: state.pSlip,
+        opportunities: state.opportunities,
+        consecutive_correct: state.consecutiveCorrect,
+        last_attempt_at: state.lastAttemptAt,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "student_id,skill_tag" });
+    }
+
+    const intelligence = buildStudentIntelligence(mappedAttempts, allQuestions);
+    const metrics = computeSkillIntelligence(mappedAttempts, questionsById);
+
+    await supabase.from("score_predictions").insert({
+      student_id: user.id,
+      predicted_score: intelligence.scorePrediction.current,
+      predicted_math: intelligence.scorePrediction.breakdown.math,
+      predicted_reading_writing: intelligence.scorePrediction.breakdown.readingWriting,
+      confidence: intelligence.scorePrediction.confidence,
+    });
+
+    for (const card of intelligence.reviewCards) {
+      await supabase.from("review_cards").upsert({
+        student_id: user.id,
+        skill_tag: card.skillTag,
+        ease_factor: card.easeFactor,
+        interval_days: card.intervalDays,
+        repetitions: card.repetitions,
+        last_review_at: card.lastReviewAt,
+        next_review_at: card.nextReviewAt,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "student_id,skill_tag" });
+    }
+
+    for (const pattern of intelligence.mistakePatterns) {
+      await supabase.from("mistake_patterns").upsert({
+        student_id: user.id,
+        skill_tag: pattern.skillTag,
+        mistake_type: pattern.mistakeType,
+        count: pattern.count,
+        last_occurrence_at: pattern.lastOccurrenceAt,
+        recurring: pattern.recurring,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "student_id,skill_tag,mistake_type" });
+    }
+
+    return {};
+  } catch (error) {
+    rethrowFrameworkError(error);
+    logServerError("syncSkillStates", error);
+    return { error: "Could not sync skill states." };
+  }
+}
+
+export async function getWeeklyPlan(): Promise<{
+  error?: string;
+  plan?: Awaited<ReturnType<typeof generateWeeklyPlan>>;
+} | null> {
+  try {
+    if (!hasSupabaseConfig()) return { error: "Database not configured." };
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
+    const [{ data: profile }, { data: attempts }, { data: questions }, { data: cards }, { data: patterns }] =
+      await Promise.all([
+        supabase.from("profiles").select("*").eq("id", user.id).maybeSingle(),
+        supabase.from("attempts").select("*").eq("student_id", user.id).order("created_at", { ascending: false }).limit(300),
+        supabase.from("questions").select("*"),
+        supabase.from("review_cards").select("*").eq("student_id", user.id),
+        supabase.from("mistake_patterns").select("*").eq("student_id", user.id),
+      ]);
+
+    const mappedProfile = profile ? mapProfileRow(profile as Record<string, unknown>) : null;
+    const allQuestions = (questions ?? []).map(mapQuestion);
+    const mappedAttempts = (attempts ?? []).map((a) => mapAttemptRow(a as Record<string, unknown>));
+    const metrics = computeSkillIntelligence(mappedAttempts, new Map(allQuestions.map((q) => [q.id, q])));
+
+    const skillStates = metrics.map((m) => ({
+      skillTag: m.skill_tag,
+      pMastered: m.skillScore,
+      pLearn: 0.15, pGuess: 0.15, pSlip: 0.1,
+      opportunities: m.attempts,
+      consecutiveCorrect: m.correct,
+      lastAttemptAt: null,
+    }));
+
+    const reviewCards = (cards ?? []).map((c: Record<string, unknown>) => ({
+      skillTag: String(c.skill_tag),
+      easeFactor: Number(c.ease_factor),
+      intervalDays: Number(c.interval_days),
+      repetitions: Number(c.repetitions),
+      lastReviewAt: c.last_review_at ? String(c.last_review_at) : null,
+      nextReviewAt: String(c.next_review_at),
+    }));
+
+    const mistakePatterns = (patterns ?? []).map((p: Record<string, unknown>) => ({
+      skillTag: String(p.skill_tag),
+      mistakeType: String(p.mistake_type) as import("@/lib/types").MistakeType,
+      count: Number(p.count),
+      lastOccurrenceAt: String(p.last_occurrence_at),
+      recurring: Boolean(p.recurring),
+      frequency: "frequent" as const,
+    }));
+
+    const plan = generateWeeklyPlan(
+      skillStates,
+      reviewCards,
+      mistakePatterns,
+      mappedProfile?.study_minutes_per_day ?? 30,
+      mappedProfile?.current_score ?? 800,
+      mappedProfile?.target_score ?? 1200
+    );
+
+    return { plan };
+  } catch (error) {
+    rethrowFrameworkError(error);
+    logServerError("getWeeklyPlan", error);
+    return { error: "Could not load weekly plan." };
   }
 }

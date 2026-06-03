@@ -22,7 +22,7 @@ export type QuestionBlueprint = {
   commonMistake: string;
   formula: string | null;
   conceptFramework: string;
-  testType?: "sat" | "act";
+  testType?: "sat";
   topic?: string;
   tone?: string;
 };

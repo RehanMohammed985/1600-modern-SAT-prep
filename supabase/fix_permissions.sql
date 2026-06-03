@@ -6,7 +6,7 @@ grant usage on schema public to anon, authenticated, service_role;
 grant select, insert, update on table public.profiles to authenticated;
 grant select on table public.profiles to anon;
 
-grant select on table public.questions to authenticated;
+grant select, insert on table public.questions to authenticated;
 
 grant select, insert, update on table public.study_sessions to authenticated;
 

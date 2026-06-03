@@ -34,30 +34,39 @@ export function difficultyBounds(
   phase: LearningPhase,
   slowMode?: boolean
 ): { min: number; max: number } {
-  const gradeMax: Record<Grade, number> = {
+  const gradeCap: Record<Grade, number> = {
     "9th": 2,
     "10th": 3,
     "11th": 4,
     "12th": 5,
   };
   const g = grade ?? "11th";
-  const cap = gradeMax[g];
+  const cap = gradeCap[g];
+
+  const gradeMin: Record<Grade, number> = {
+    "9th": 1,
+    "10th": 1,
+    "11th": 1,
+    "12th": 1,
+  };
 
   switch (phase) {
     case "concept_mastery":
       return slowMode
-        ? { min: 1, max: Math.min(2, cap) }
-        : { min: 1, max: g === "9th" ? 2 : 3 };
+        ? { min: gradeMin[g], max: Math.min(2, cap) }
+        : { min: gradeMin[g], max: Math.min(2, cap) };
     case "skill_reinforcement":
       return slowMode
-        ? { min: 1, max: Math.min(3, cap) }
-        : { min: 1, max: Math.min(cap, g === "9th" ? 2 : 3) };
+        ? { min: gradeMin[g], max: Math.min(3, cap) }
+        : { min: gradeMin[g], max: Math.min(3, cap) };
     case "sat_transition":
       return slowMode
         ? { min: 2, max: Math.min(3, cap) }
-        : { min: 2, max: Math.min(cap, g === "9th" ? 3 : 4) };
+        : { min: 2, max: Math.min(4, cap) };
     case "sat_readiness":
-      return slowMode ? { min: 2, max: Math.min(4, cap) } : { min: 2, max: cap };
+      return slowMode
+        ? { min: 2, max: Math.min(4, cap) }
+        : { min: 2, max: cap };
   }
 }
 

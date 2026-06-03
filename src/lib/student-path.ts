@@ -12,7 +12,6 @@ import type {
 } from "./types";
 
 export const SAT_SIGNUP_URL = "https://satsuite.collegeboard.org/sat/registration";
-export const ACT_SIGNUP_URL = "https://www.act.org/content/act/en/products-and-services/the-act/registration.html";
 
 export const TIMELINE_OPTIONS: { value: TestTimeline; label: string; hint: string }[] = [
   { value: "not_sure", label: "I'm not sure yet", hint: "Totally fine — we'll keep things flexible." },
@@ -87,14 +86,11 @@ export function signupGuidance(
   if (status === "not_signed_up") {
     return "Not signed up yet? We'll help you choose a test date when you're ready.";
   }
-  if (track === "act") {
-    return "When you're ready, register for the ACT so you have a date to work toward.";
-  }
   return "You don't need a test date today. When you're ready, sign up so prep has a clear finish line.";
 }
 
-export function signupUrl(track: TestTrack | null): string {
-  return track === "act" ? ACT_SIGNUP_URL : SAT_SIGNUP_URL;
+export function signupUrl(_track: TestTrack | null): string {
+  return SAT_SIGNUP_URL;
 }
 
 export function dashboardTitle(profile: Pick<Profile, "sat_experience" | "beginner_path" | "grade">): string {

@@ -1,11 +1,10 @@
 "use client";
 
-import { BookMarked, HelpCircle, Lightbulb, ListOrdered, Target } from "lucide-react";
-import { FormulaVisualization } from "@/components/formula-visualization";
-import { ConceptVisual } from "@/lib/concept-visuals";
+import { BookOpen, Crosshair, Lightbulb, Target } from "lucide-react";
 import { buildTutoringBreakdown } from "@/lib/solution-steps";
 import type { TutoringReview } from "@/lib/question-factory";
 import type { SubmitAttemptResult } from "@/app/actions";
+import { PassageEvidenceBlock } from "@/components/passage-evidence-block";
 
 type Props = {
   feedback: SubmitAttemptResult;
@@ -14,6 +13,7 @@ type Props = {
   skill: string;
   section: "math" | "reading";
   questionText: string;
+  passageText?: string | null;
   formulaLatex?: string | null;
 };
 
@@ -24,7 +24,7 @@ function ReviewSection({
   tone = "neutral",
 }: {
   title: string;
-  icon: typeof HelpCircle;
+  icon: typeof Lightbulb;
   children: React.ReactNode;
   tone?: "neutral" | "warn" | "success" | "concept";
 }) {
@@ -53,6 +53,7 @@ export function ConceptReviewCard({
   skill,
   section,
   questionText,
+  passageText,
   formulaLatex,
 }: Props) {
   const breakdown = buildTutoringBreakdown({
@@ -66,53 +67,47 @@ export function ConceptReviewCard({
     skill,
   });
 
-  const whyWrong = review?.whyWrong ?? breakdown.whyWrong;
-  const commonMistake = review?.commonMistake ?? breakdown.commonMistake;
-  const concept =
-    review?.underlyingConcept ??
-    feedback.underlyingConcept ??
-    feedback.conceptExplanation ??
-    "This question tests one core idea. Learn the rule below, then try the follow-up questions.";
-  const rule = review?.formulaOrRule ?? feedback.formulaOrRule;
-  const remember = review?.rememberNextTime ?? breakdown.rememberNextTime;
+  const whatHappened =
+    review?.whyWrong ??
+    `You picked "${feedback.selectedAnswer}", but the correct answer is "${feedback.correctAnswer}". ${feedback.explanation.split(/(?<=[.!?])\s+/)[0] ?? ""}`;
   const steps = review?.solutionSteps ?? breakdown.microSteps;
-  const workedExample = review?.workedExample ?? breakdown.workedExample;
+  const nextTime = review?.rememberNextTime ?? breakdown.rememberNextTime;
+  const passageEvidence = review?.passageEvidence ?? null;
 
   return (
     <div className="space-y-4 text-sm leading-relaxed text-black/80">
       <div className="grid gap-3 sm:grid-cols-2">
-        <ReviewSection title="Your answer" icon={Target} tone="warn">
-          <p className="font-medium text-black/90">{feedback.selectedAnswer}</p>
-        </ReviewSection>
-        <ReviewSection title="Correct answer" icon={Target} tone="success">
-          <p className="font-semibold text-black/90">{feedback.correctAnswer}</p>
-        </ReviewSection>
+        <div className="rounded-xl border border-red-200/80 bg-red-50/40 p-4">
+          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-black/55">
+            <Crosshair className="h-3.5 w-3.5 text-[#FF7A3D]" />
+            Your answer
+          </p>
+          <p className="mt-1 font-medium text-black/90">{feedback.selectedAnswer}</p>
+        </div>
+        <div className="rounded-xl border border-emerald-200/80 bg-emerald-50/40 p-4">
+          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-black/55">
+            <Target className="h-3.5 w-3.5 text-[#FF7A3D]" />
+            Correct answer
+          </p>
+          <p className="mt-1 font-semibold text-black/90">{feedback.correctAnswer}</p>
+        </div>
       </div>
 
       {loading ? (
-        <p className="mt-2 text-xs text-black/45">Personalizing your explanation…</p>
-      ) : null}
-      <ReviewSection title="Why your answer was wrong" icon={HelpCircle} tone="warn">
-        <p>{whyWrong}</p>
-      </ReviewSection>
-
-      <ReviewSection title="Why students commonly miss this" icon={Lightbulb}>
-        <p>{commonMistake}</p>
-      </ReviewSection>
-
-      <ReviewSection title="Underlying concept" icon={BookMarked} tone="concept">
-        <p>{concept}</p>
-      </ReviewSection>
-
-      {rule ? (
-        <FormulaVisualization formula={rule} latex={formulaLatex} label="Formula or rule" />
+        <p className="text-xs text-black/45">Personalizing your explanation…</p>
       ) : null}
 
-      <ConceptVisual skill={skill} section={section} />
+      <ReviewSection title="What went wrong" icon={Crosshair} tone="warn">
+        <p>{whatHappened}</p>
+      </ReviewSection>
 
-      <ReviewSection title="Step-by-step breakdown" icon={ListOrdered}>
+      {section === "reading" && passageEvidence ? (
+        <PassageEvidenceBlock passageText={passageText ?? ""} evidenceText={passageEvidence.text} />
+      ) : null}
+
+      <ReviewSection title="Here's how to solve it" icon={BookOpen}>
         <ol className="mt-1 space-y-3">
-          {steps.map((step, i) => (
+          {steps.slice(0, 4).map((step, i) => (
             <li key={i} className="flex gap-3">
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#111111] text-xs font-semibold text-white">
                 {i + 1}
@@ -123,20 +118,8 @@ export function ConceptReviewCard({
         </ol>
       </ReviewSection>
 
-      {workedExample.length > 1 ? (
-        <ReviewSection title="Worked example" icon={ListOrdered}>
-          <ul className="space-y-2">
-            {workedExample.map((line, i) => (
-              <li key={i} className="leading-7">
-                {line}
-              </li>
-            ))}
-          </ul>
-        </ReviewSection>
-      ) : null}
-
-      <ReviewSection title="What to remember next time" icon={BookMarked} tone="success">
-        <p className="font-medium text-emerald-950/90">{remember}</p>
+      <ReviewSection title="Remember for next time" icon={Lightbulb} tone="success">
+        <p className="font-medium text-emerald-950/90">{nextTime}</p>
       </ReviewSection>
     </div>
   );

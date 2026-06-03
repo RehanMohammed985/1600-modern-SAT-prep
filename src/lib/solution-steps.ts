@@ -48,25 +48,52 @@ function plainConcept(input: StepInput): string {
   const raw =
     input.conceptExplanation?.trim() ||
     input.underlyingConcept?.trim() ||
-    (input.section === "math"
-      ? "This problem tests one math rule. Learn the rule, then match your steps to an answer choice."
-      : "This question tests one reading skill. Find proof in the passage before you pick.");
-  const sentence = raw.split(/(?<=[.!?])\s+/)[0] ?? raw;
-  return sentence.length > 160 ? `${sentence.slice(0, 157)}…` : sentence;
+    null;
+
+  if (raw) {
+    const s = raw.split(/(?<=[.!?])\s+/)[0] ?? raw;
+    return s.length > 120 ? `${s.slice(0, 117)}…` : s;
+  }
+
+  if (input.skill?.startsWith("writing-")) return "The way a sentence is put together changes its meaning.";
+  if (input.section === "reading") return "The answer is hiding in the passage — you just have to find the exact words.";
+  return "There's one right way to solve this — follow the steps carefully.";
+}
+
+export function grammarRuleExplanation(input: StepInput): string | null {
+  if (!input.skill?.startsWith("writing-")) return null;
+  const rules: Record<string, string> = {
+    "writing-grammar": "Subjects and verbs must agree: 'He runs' not 'He run'. Replace the subject with 'he/she/it' to check.",
+    "writing-sentence-structure": "Every sentence needs a subject + verb and must be a complete thought. No fragments or run-ons.",
+    "writing-punctuation": "Semicolons join two complete sentences. Commas separate items or set off clauses. Dashes add emphasis.",
+    "writing-style": "Keep the same verb tense. Don't switch between past, present, and future without a reason.",
+    "writing-organization": "Transitions connect ideas: 'however' = contrast, 'therefore' = result, 'furthermore' = add on.",
+  };
+  for (const [skill, rule] of Object.entries(rules)) {
+    if (input.skill === skill || input.skill?.startsWith(skill)) return rule;
+  }
+  return null;
 }
 
 export function buildWhyWrongSimple(input: StepInput): string {
   const picked = input.selectedAnswer?.trim();
   const correct = input.correctAnswer.trim();
   if (!picked || picked.toLowerCase() === correct.toLowerCase()) {
-    return "You were close — one small step was off. Walk through the worked example below.";
+    return "You were super close — just tripped on one tiny thing. Look at the steps and see where you slipped.";
   }
 
+  const grammarRule = grammarRuleExplanation(input);
+
+  if (grammarRule) {
+    return `You picked "${picked}", but the right answer is "${correct}". Here's why: ${grammarRule} Your answer "${picked}" doesn't follow that rule.`;
+  }
+
+  const concept = plainConcept(input);
   const work = splitExplanation(input.explanation);
   const firstFix = work[0] ?? input.explanation;
-  const concept = plainConcept(input);
+  const plainFix = firstFix.length > 140 ? firstFix.slice(0, 137) + "..." : firstFix;
 
-  return `You picked "${picked}", but the correct answer is "${correct}". ${firstFix} The big idea: ${concept}`;
+  return `You picked "${picked}", but the right answer is "${correct}". ${concept} ${plainFix}`;
 }
 
 export function buildCommonMistakeHint(input: StepInput): string {
@@ -76,24 +103,27 @@ export function buildCommonMistakeHint(input: StepInput): string {
   if (input.commonMistakes?.length) {
     return input.commonMistakes[0];
   }
-  if (input.underlyingConcept?.toLowerCase().includes("slope")) {
-    return "A lot of students swap the top and bottom numbers or subtract in the wrong order.";
-  }
   if (input.section === "reading") {
-    return "Many students pick an answer that is true in the passage but does not answer the exact question.";
+    return "Many students pick an answer that sounds true but doesn't actually answer the question. Check the passage again.";
   }
-  return "Many students rush and skip writing out each step before picking an answer.";
+  if (input.underlyingConcept?.toLowerCase().includes("slope")) {
+    return "Common mistake: swapping the top and bottom numbers or subtracting in the wrong order.";
+  }
+  return "Common mistake: rushing and picking without checking each step.";
 }
 
 export function buildRememberNextTime(input: StepInput): string {
+  const grammarRule = grammarRuleExplanation(input);
+  if (grammarRule) {
+    return "Next time: read the sentence without the underlined part. Then try each choice in the blank. Only one will sound right AND follow the grammar rule.";
+  }
   if (input.formulaOrRule?.trim()) {
-    const rule = input.formulaOrRule.split(/[.!?]/)[0];
-    return `Before you pick, say the rule out loud: ${rule}. Then match your work to one answer choice.`;
+    return "Next time: write down the formula first. Then plug in numbers one at a time. Don't skip steps — that's where the trap is.";
   }
-  if (input.section === "math") {
-    return "Write each step on its own line. Only pick an answer after the last step matches a choice.";
+  if (input.section === "reading") {
+    return "Next time: read the question first, then hunt for the exact words in the passage that back up your answer. If you can't find them, it's probably wrong.";
   }
-  return "Underline what the question asks, then find proof in the passage before you choose.";
+  return "Next time: solve step by step on paper. Don't try to do it all in your head — that's how tiny mistakes slip in.";
 }
 
 function buildWorkedExample(input: StepInput, steps: string[]): string[] {
@@ -112,23 +142,30 @@ export function buildTutoringBreakdown(input: StepInput): TutoringBreakdown {
   const chunks = splitExplanation(input.explanation);
   const microSteps: string[] = [];
 
-  if (input.section === "math") {
-    microSteps.push("Circle what the question asks you to find.");
+  const grammarRule = grammarRuleExplanation(input);
+  if (grammarRule) {
+    microSteps.push("Read the sentence without the underlined part.");
+    microSteps.push("Ask yourself: does this sound right with each choice?");
+    microSteps.push("Check the grammar rule against your pick.");
+  } else if (input.section === "reading" && !input.skill?.startsWith("writing-")) {
+    microSteps.push("Look at the question — what is it actually asking?");
+    microSteps.push("Find the spot in the passage that talks about this.");
+    microSteps.push("Read those lines and pick the answer that matches.");
   } else {
-    microSteps.push("Underline the question, then find the lines in the passage it refers to.");
+    microSteps.push("Figure out what the question wants you to find.");
+    microSteps.push(input.formulaOrRule?.trim()
+      ? `Use this: ${input.formulaOrRule.trim().split(/[.!?]/)[0]}`
+      : "Solve it one piece at a time.");
   }
 
-  if (input.formulaOrRule?.trim()) {
-    microSteps.push(`Use: ${input.formulaOrRule.trim()}`);
-  }
-
-  explodeToMicroSteps(chunks).forEach((chunk) => {
-    microSteps.push(chunk.endsWith(".") ? chunk : `${chunk}.`);
+  explodeToMicroSteps(chunks).slice(0, 1).forEach((chunk) => {
+    const c = chunk.endsWith(".") ? chunk : `${chunk}.`;
+    if (!microSteps.includes(c)) microSteps.push(c);
   });
 
-  microSteps.push(`Pick: ${input.correctAnswer}`);
+  microSteps.push(`Answer: ${input.correctAnswer}`);
 
-  const trimmedSteps = microSteps.slice(0, 6);
+  const trimmedSteps = microSteps.slice(0, 4);
 
   return {
     whyWrong: buildWhyWrongSimple(input),

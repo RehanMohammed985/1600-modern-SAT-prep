@@ -30,6 +30,7 @@ type Props = {
   onNext: () => void;
   nextLabel: string;
   submitting: boolean;
+  passageText?: string | null;
 };
 
 export function SessionReviewPanel({
@@ -47,6 +48,7 @@ export function SessionReviewPanel({
   onNext,
   nextLabel,
   submitting,
+  passageText,
 }: Props) {
   const [review, setReview] = useState<TutoringReview | null>(null);
   const [reviewLoading, setReviewLoading] = useState(false);
@@ -83,6 +85,7 @@ export function SessionReviewPanel({
         difficulty,
         mistakeTypes: ["concept_gap"],
         estimatedTime: 90,
+        passageText,
       },
       selectedAnswer: feedback.selectedAnswer,
       mistakeType: feedback.mistakeType,
@@ -117,6 +120,7 @@ export function SessionReviewPanel({
     section,
     difficulty,
     commonMistakeExplanation,
+    passageText,
   ]);
 
   async function handleSimpler() {
@@ -176,6 +180,7 @@ export function SessionReviewPanel({
             skill={skill}
             section={section}
             questionText={questionText}
+            passageText={passageText}
             formulaLatex={formulaLatex}
           />
           {review?.practiceNext ? (

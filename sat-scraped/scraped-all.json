@@ -1,0 +1,2215 @@
+{
+  "source": "sat-scraper",
+  "scrapedAt": "2026-06-03T04:10:54.262Z",
+  "count": 92,
+  "questions": [
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "If 3x + 7 = 22, what is x?",
+      "choices": [
+        "3",
+        "5",
+        "7",
+        "9"
+      ],
+      "correctAnswer": "5",
+      "explanation": "3x = 15, x = 5",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "Solve: 2(x - 4) = 12",
+      "choices": [
+        "6",
+        "8",
+        "10",
+        "12"
+      ],
+      "correctAnswer": "10",
+      "explanation": "x - 4 = 6, x = 10",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "A taxi charges $2.50 per mile plus $4 flat fee. A ride costs $19. How many miles?",
+      "choices": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "correctAnswer": "6",
+      "explanation": "2.50m + 4 = 19, m = 6",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "If 5x - 8 = 2x + 13, what is x?",
+      "choices": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "correctAnswer": "7",
+      "explanation": "3x = 21, x = 7",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "Solve the system: x + y = 12 and x - y = 2",
+      "choices": [
+        "(5,7)",
+        "(6,6)",
+        "(7,5)",
+        "(8,4)"
+      ],
+      "correctAnswer": "(7,5)",
+      "explanation": "Add: 2x = 14, x = 7. Then y = 5.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "A line passes through (2,5) and (6,13). What is its slope?",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correctAnswer": "2",
+      "explanation": "Slope = (13-5)/(6-2) = 8/4 = 2",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "If 3(2x - 5) = 4(x + 2) + 1, what is x?",
+      "choices": [
+        "7",
+        "9",
+        "11",
+        "13"
+      ],
+      "correctAnswer": "11",
+      "explanation": "6x - 15 = 4x + 9, 2x = 24, x = 12",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "What is the y-intercept of y = 3x - 5?",
+      "choices": [
+        "3",
+        "-5",
+        "5",
+        "-3"
+      ],
+      "correctAnswer": "-5",
+      "explanation": "y-intercept is the constant term: -5",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "A rectangle's length is 3 times its width. If the perimeter is 48, what is the width?",
+      "choices": [
+        "4",
+        "6",
+        "8",
+        "12"
+      ],
+      "correctAnswer": "6",
+      "explanation": "2(w + 3w) = 48, 8w = 48, w = 6",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "If 4x + 3 = 19, what is the value of 2x - 1?",
+      "choices": [
+        "5",
+        "7",
+        "9",
+        "11"
+      ],
+      "correctAnswer": "7",
+      "explanation": "4x = 16, x = 4. Then 2(4)-1 = 7",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "percent-ratios",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "What is 20% of 150?",
+      "choices": [
+        "20",
+        "25",
+        "30",
+        "35"
+      ],
+      "correctAnswer": "30",
+      "explanation": "0.20 × 150 = 30",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "percent-ratios",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "A jacket costs $80 and is 35% off. What is the sale price?",
+      "choices": [
+        "$45",
+        "$48",
+        "$50",
+        "$52"
+      ],
+      "correctAnswer": "$52",
+      "explanation": "Discount = $28. Sale = $80 - $28 = $52",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "percent-ratios",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "The ratio of cats to dogs is 3:4. If there are 24 dogs, how many cats?",
+      "choices": [
+        "12",
+        "15",
+        "18",
+        "21"
+      ],
+      "correctAnswer": "18",
+      "explanation": "4 parts = 24, so 1 = 6. Cats = 3 × 6 = 18",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "percent-ratios",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "A population grows from 500 to 600. What is the percent increase?",
+      "choices": [
+        "10%",
+        "15%",
+        "20%",
+        "25%"
+      ],
+      "correctAnswer": "20%",
+      "explanation": "Increase = 100. 100/500 = 0.20 = 20%",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "percent-ratios",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "If a:b = 2:5 and b:c = 3:4, what is a:c?",
+      "choices": [
+        "3:10",
+        "6:20",
+        "3:5",
+        "2:3"
+      ],
+      "correctAnswer": "3:10",
+      "explanation": "a:b = 6:15, b:c = 15:20, so a:c = 6:20 = 3:10",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "functions",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "If f(x) = 3x² - 2x + 1, what is f(2)?",
+      "choices": [
+        "7",
+        "9",
+        "11",
+        "13"
+      ],
+      "correctAnswer": "9",
+      "explanation": "f(2) = 3(4) - 4 + 1 = 12 - 4 + 1 = 9",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "functions",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "What is the vertex of y = x² - 8x + 15?",
+      "choices": [
+        "(4,-1)",
+        "(-4,-1)",
+        "(4,1)",
+        "(-4,1)"
+      ],
+      "correctAnswer": "(4,-1)",
+      "explanation": "Complete square: (x-4)² - 1, vertex at (4,-1)",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "functions",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "If f(x) = 2x + 3 and g(x) = x², what is f(g(2))?",
+      "choices": [
+        "7",
+        "9",
+        "11",
+        "13"
+      ],
+      "correctAnswer": "11",
+      "explanation": "g(2) = 4, f(4) = 2(4)+3 = 11",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "functions",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "What are the solutions to x² - 7x + 12 = 0?",
+      "choices": [
+        "(3,4)",
+        "(-3,-4)",
+        "(2,6)",
+        "(-2,-6)"
+      ],
+      "correctAnswer": "(3,4)",
+      "explanation": "(x-3)(x-4) = 0, x = 3 or 4",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "geometry-basics",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "What is the area of a circle with radius 6?",
+      "choices": [
+        "12π",
+        "24π",
+        "36π",
+        "48π"
+      ],
+      "correctAnswer": "36π",
+      "explanation": "A = πr² = 36π",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "geometry-basics",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "A triangle has base 10 and height 7. What is its area?",
+      "choices": [
+        "25",
+        "30",
+        "35",
+        "70"
+      ],
+      "correctAnswer": "35",
+      "explanation": "A = ½ × 10 × 7 = 35",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "geometry-basics",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "In a right triangle, one leg is 5 and the hypotenuse is 13. What is the other leg?",
+      "choices": [
+        "10",
+        "11",
+        "12",
+        "14"
+      ],
+      "correctAnswer": "12",
+      "explanation": "a² + 25 = 169, a² = 144, a = 12",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "geometry-basics",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "A cylinder has radius 3 and height 8. What is its volume?",
+      "choices": [
+        "48π",
+        "56π",
+        "64π",
+        "72π"
+      ],
+      "correctAnswer": "72π",
+      "explanation": "V = πr²h = 9π × 8 = 72π",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "data-interpretation",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "In a class of 30, the scores are: 10 scored 80, 12 scored 90, 8 scored 100. What is the average?",
+      "choices": [
+        "85",
+        "88",
+        "89",
+        "90"
+      ],
+      "correctAnswer": "89",
+      "explanation": "(10×80 + 12×90 + 8×100) / 30 = 2670/30 = 89",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "data-interpretation",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "What is the median of: 12, 15, 18, 22, 25, 30?",
+      "choices": [
+        "18",
+        "19",
+        "20",
+        "21"
+      ],
+      "correctAnswer": "20",
+      "explanation": "Median of even set = average of 2 middle: (18+22)/2 = 20",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "data-interpretation",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "A bar chart shows 40 apples, 30 oranges, 20 bananas. What fraction are oranges?",
+      "choices": [
+        "1/4",
+        "1/3",
+        "3/7",
+        "4/9"
+      ],
+      "correctAnswer": "1/3",
+      "explanation": "30 out of 90 = 1/3",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "probability",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "What is the probability of rolling an even number on a fair die?",
+      "choices": [
+        "1/6",
+        "1/3",
+        "1/2",
+        "2/3"
+      ],
+      "correctAnswer": "1/2",
+      "explanation": "Even: 2,4,6 — 3 out of 6 = 1/2",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "probability",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "A bag has 5 red, 3 blue, 2 green marbles. Probability of drawing blue?",
+      "choices": [
+        "0.1",
+        "0.2",
+        "0.3",
+        "0.4"
+      ],
+      "correctAnswer": "0.3",
+      "explanation": "3 out of 10 = 0.3",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "probability",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "If you flip a coin twice, probability of at least one head?",
+      "choices": [
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "correctAnswer": "3/4",
+      "explanation": "Possible: HH, HT, TH, TT. 3 have at least one H",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-main-idea",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "A passage describes how social media connects people globally but also spreads misinformation. What is the main idea?",
+      "choices": [
+        "Social media is harmful.",
+        "Social media has both benefits and drawbacks.",
+        "People should stop using social media.",
+        "Misinformation is the only problem."
+      ],
+      "correctAnswer": "Social media has both benefits and drawbacks.",
+      "explanation": "The passage presents both connection benefits and misinformation drawbacks.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-main-idea",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "A text traces the history of democracy from ancient Greece to modern representative governments. The primary purpose is to —",
+      "choices": [
+        "argue for direct democracy",
+        "describe the evolution of democratic systems",
+        "criticize modern governments",
+        "compare Greece to today"
+      ],
+      "correctAnswer": "describe the evolution of democratic systems",
+      "explanation": "The passage traces the historical development of democratic systems.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-main-idea",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "An article explains how exercise improves both physical and mental health. Which best states the main idea?",
+      "choices": [
+        "Exercise is good for your body.",
+        "Exercise benefits physical health and mental well-being.",
+        "People should exercise every day.",
+        "Mental health matters more than physical health."
+      ],
+      "correctAnswer": "Exercise benefits physical health and mental well-being.",
+      "explanation": "The article covers both physical and mental benefits.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-evidence",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "An author claims \"renewable energy is now more affordable than fossil fuels.\" Which evidence best supports this?",
+      "choices": [
+        "Solar panels were invented in the 1950s.",
+        "The cost of solar energy has dropped 90% in the last decade.",
+        "Many countries use renewable energy.",
+        "Fossil fuels cause pollution."
+      ],
+      "correctAnswer": "The cost of solar energy has dropped 90% in the last decade.",
+      "explanation": "Cost data directly supports the affordability claim.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-evidence",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "A student argues that school uniforms reduce bullying. Which evidence strengthens this claim?",
+      "choices": [
+        "Uniforms are comfortable.",
+        "Some schools report fewer bullying incidents after adopting uniforms.",
+        "Most students own uniforms.",
+        "Uniforms cost money."
+      ],
+      "correctAnswer": "Some schools report fewer bullying incidents after adopting uniforms.",
+      "explanation": "Real-world data on bullying reduction supports the claim directly.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-inference",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "The CEO stated, 'We are exploring strategic alternatives for our retail division.' What does the CEO imply?",
+      "choices": [
+        "The division is expanding.",
+        "The company may sell or restructure the retail division.",
+        "The retail division is profitable.",
+        "New stores will open soon."
+      ],
+      "correctAnswer": "The company may sell or restructure the retail division.",
+      "explanation": "'Exploring strategic alternatives' is a common euphemism for considering sale or restructuring.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-inference",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "After the review, the manager scheduled a follow-up meeting and asked the team to prepare spreadsheets. What can be inferred?",
+      "choices": [
+        "The meeting was about office supplies.",
+        "The review identified issues needing data analysis.",
+        "The team is being laid off.",
+        "Spreadsheets are the manager's hobby."
+      ],
+      "correctAnswer": "The review identified issues needing data analysis.",
+      "explanation": "The requested spreadsheets suggest data-driven follow-up for identified issues.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-vocabulary",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "\"The lawyer presented a cogent argument that convinced the jury.\" Cogent most nearly means —",
+      "choices": [
+        "confusing",
+        "convincing",
+        "creative",
+        "complicated"
+      ],
+      "correctAnswer": "convincing",
+      "explanation": "Cogent means clear, logical, and convincing.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-vocabulary",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "\"The scientific community was skeptical of the novel theory.\" Novel most nearly means —",
+      "choices": [
+        "fictional",
+        "dangerous",
+        "new",
+        "popular"
+      ],
+      "correctAnswer": "new",
+      "explanation": "Novel in this context means new or original.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-vocabulary",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "\"Her laconic reply revealed little about her true feelings.\" Laconic most nearly means —",
+      "choices": [
+        "lengthy",
+        "emotional",
+        "brief",
+        "angry"
+      ],
+      "correctAnswer": "brief",
+      "explanation": "Laconic means using very few words, concise to the point of being abrupt.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-grammar",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "Choose the correct version: 'Each of the players ___ ready for the game.'",
+      "choices": [
+        "are",
+        "is",
+        "were",
+        "have been"
+      ],
+      "correctAnswer": "is",
+      "explanation": "'Each' is singular, so the verb must be singular.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-grammar",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "Which is correct? 'Neither the manager nor the employees ___ satisfied.'",
+      "choices": [
+        "was",
+        "were",
+        "is",
+        "has been"
+      ],
+      "correctAnswer": "were",
+      "explanation": "Verb agrees with the closer subject 'employees' (plural).",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-grammar",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "Correct version: 'She ___ to school yesterday.'",
+      "choices": [
+        "go",
+        "goes",
+        "went",
+        "gone"
+      ],
+      "correctAnswer": "went",
+      "explanation": "Yesterday signals past tense.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-grammar",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "Which is punctuated correctly?",
+      "choices": [
+        "I enjoy reading, however I prefer movies.",
+        "I enjoy reading; however, I prefer movies.",
+        "I enjoy reading however, I prefer movies.",
+        "I enjoy reading; however I prefer movies."
+      ],
+      "correctAnswer": "I enjoy reading; however, I prefer movies.",
+      "explanation": "Semicolon before conjunctive adverb, comma after.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-style",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "Which is most concise? 'The reason why the project failed was due to the fact that the budget was too small.'",
+      "choices": [
+        "The reason why the project failed was due to the fact that the budget was too small.",
+        "The project failed because the budget was too small.",
+        "The project failed due to the budget being too small.",
+        "The reason the project failed was due to the budget."
+      ],
+      "correctAnswer": "The project failed because the budget was too small.",
+      "explanation": "'Because' replaces the entire wordy phrase.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-style",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "Which transition fits best? 'The company lost revenue for three quarters. ___, it laid off 200 employees.'",
+      "choices": [
+        "Furthermore",
+        "As a result",
+        "However",
+        "Meanwhile"
+      ],
+      "correctAnswer": "As a result",
+      "explanation": "Lost revenue caused the layoffs — cause and effect.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-style",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "Which sentence uses the most formal tone?",
+      "choices": [
+        "The results are pretty cool.",
+        "The results indicate a significant trend.",
+        "The results are, like, really important.",
+        "The results matter a lot."
+      ],
+      "correctAnswer": "The results indicate a significant trend.",
+      "explanation": "Formal writing uses precise, objective language.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "If 2x + 5 = 3x - 7, what is x?",
+      "choices": [
+        "10",
+        "11",
+        "12",
+        "13"
+      ],
+      "correctAnswer": "12",
+      "explanation": "2x - 3x = -7 - 5, -x = -12, x = 12",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "Three consecutive integers sum to 36. What is the largest?",
+      "choices": [
+        "11",
+        "12",
+        "13",
+        "14"
+      ],
+      "correctAnswer": "13",
+      "explanation": "3n = 33, n = 11. Largest = 13",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "A car travels 60 miles per hour. How far in 45 minutes?",
+      "choices": [
+        "35",
+        "40",
+        "45",
+        "50"
+      ],
+      "correctAnswer": "45",
+      "explanation": "60 × 0.75 = 45 miles",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "Simplify: 3(2x + 4) - 5x",
+      "choices": [
+        "x + 12",
+        "6x + 7",
+        "x + 7",
+        "x - 12"
+      ],
+      "correctAnswer": "x + 12",
+      "explanation": "6x + 12 - 5x = x + 12",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "algebra-linear",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "If (x + 2)/3 = (x - 4)/2, what is x?",
+      "choices": [
+        "12",
+        "14",
+        "16",
+        "18"
+      ],
+      "correctAnswer": "16",
+      "explanation": "2(x+2) = 3(x-4), 2x+4 = 3x-12, x = 16",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "percent-ratios",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "A store marks up items by 30%. If wholesale is $60, what is retail?",
+      "choices": [
+        "$72",
+        "$75",
+        "$78",
+        "$80"
+      ],
+      "correctAnswer": "$78",
+      "explanation": "Markup = $18. Retail = $60 + $18 = $78",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "percent-ratios",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "If 60% of a number is 240, what is the number?",
+      "choices": [
+        "300",
+        "350",
+        "400",
+        "450"
+      ],
+      "correctAnswer": "400",
+      "explanation": "0.6x = 240, x = 400",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "percent-ratios",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "A salary increases from $50,000 to $56,000. Percent increase?",
+      "choices": [
+        "10%",
+        "12%",
+        "15%",
+        "20%"
+      ],
+      "correctAnswer": "12%",
+      "explanation": "6000/50000 = 0.12 = 12%",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "percent-ratios",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "If 15% of a number is 45, what is the number?",
+      "choices": [
+        "200",
+        "250",
+        "300",
+        "350"
+      ],
+      "correctAnswer": "300",
+      "explanation": "0.15x = 45, x = 300",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "percent-ratios",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "In a class, the ratio of boys to girls is 5:4. If there are 20 boys, how many girls?",
+      "choices": [
+        "12",
+        "14",
+        "16",
+        "18"
+      ],
+      "correctAnswer": "16",
+      "explanation": "5 parts = 20, so 1 = 4. Girls = 4×4 = 16",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "geometry-basics",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "Area of a trapezoid with bases 6 and 10 and height 4?",
+      "choices": [
+        "24",
+        "28",
+        "32",
+        "40"
+      ],
+      "correctAnswer": "32",
+      "explanation": "A = (b1+b2)/2 × h = 16/2 × 4 = 32",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "geometry-basics",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "A circle has circumference 24π. What is its area?",
+      "choices": [
+        "144π",
+        "576π",
+        "48π",
+        "96π"
+      ],
+      "correctAnswer": "144π",
+      "explanation": "r = 12, A = 144π",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "geometry-basics",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "A square has side length 9. What is its perimeter?",
+      "choices": [
+        "18",
+        "27",
+        "36",
+        "81"
+      ],
+      "correctAnswer": "36",
+      "explanation": "P = 4 × 9 = 36",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "geometry-basics",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "A triangle has sides 6, 8, 10. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No",
+        "Cannot determine",
+        "Only if base is 10"
+      ],
+      "correctAnswer": "Yes",
+      "explanation": "6² + 8² = 36 + 64 = 100 = 10²",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "geometry-basics",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "Volume of a sphere with radius 3?",
+      "choices": [
+        "27π",
+        "36π",
+        "108π",
+        "12π"
+      ],
+      "correctAnswer": "36π",
+      "explanation": "V = (4/3)πr³ = (4/3)π(27) = 36π",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "geometry-basics",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "What is the area of a parallelogram with base 12 and height 5?",
+      "choices": [
+        "30",
+        "40",
+        "50",
+        "60"
+      ],
+      "correctAnswer": "60",
+      "explanation": "A = bh = 12 × 5 = 60",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "functions",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "y = -3x² + 6x - 2 opens —",
+      "choices": [
+        "upward, min",
+        "downward, max",
+        "upward, max",
+        "downward, min"
+      ],
+      "correctAnswer": "downward, max",
+      "explanation": "a = -3 < 0, opens downward with maximum",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "functions",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "f(x) = 2x - 1 and g(x) = 3x + 2, what is f(g(1))?",
+      "choices": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "correctAnswer": "7",
+      "explanation": "g(1) = 5, f(5) = 2(5)-1 = 9",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "functions",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "If f(x) = x² - 4x + 3, find f(0) and f(2)",
+      "choices": [
+        "(3,-1)",
+        "(0,-1)",
+        "(3,1)",
+        "(0,1)"
+      ],
+      "correctAnswer": "(3,-1)",
+      "explanation": "f(0) = 3, f(2) = 4 - 8 + 3 = -1",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "functions",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "Solve x² - 5x + 6 = 0",
+      "choices": [
+        "(2,3)",
+        "(-2,-3)",
+        "(1,6)",
+        "(5,1)"
+      ],
+      "correctAnswer": "(2,3)",
+      "explanation": "(x-2)(x-3) = 0, x = 2 or 3",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "functions",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "The vertex of y = 2x² - 8x + 5 is at x = ?",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correctAnswer": "2",
+      "explanation": "x = -b/(2a) = 8/(4) = 2",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "data-interpretation",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "Dataset: 2,4,6,8,10. What is the SD?",
+      "choices": [
+        "2",
+        "2.83",
+        "3.16",
+        "4"
+      ],
+      "correctAnswer": "2.83",
+      "explanation": "Mean = 6, var = 40/5 = 8, SD = √8 ≈ 2.83",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "data-interpretation",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "Dataset: 5,10,15,20,25. What is the mean?",
+      "choices": [
+        "12",
+        "13",
+        "14",
+        "15"
+      ],
+      "correctAnswer": "15",
+      "explanation": "Sum = 75, n = 5, mean = 15",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "data-interpretation",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "Scores: 70,80,85,90,95. What is the range?",
+      "choices": [
+        "15",
+        "20",
+        "25",
+        "30"
+      ],
+      "correctAnswer": "25",
+      "explanation": "Range = 95 - 70 = 25",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "probability",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "Raffle with 100 tickets, you buy 5. Probability of winning?",
+      "choices": [
+        "0.01",
+        "0.05",
+        "0.10",
+        "0.50"
+      ],
+      "correctAnswer": "0.05",
+      "explanation": "5/100 = 0.05",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "probability",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "Coin flip: probability of heads?",
+      "choices": [
+        "0",
+        "0.25",
+        "0.5",
+        "1"
+      ],
+      "correctAnswer": "0.5",
+      "explanation": "1 favorable out of 2 possible = 0.5",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "probability",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "Deck of 52 cards, probability of drawing a heart?",
+      "choices": [
+        "1/13",
+        "1/4",
+        "1/2",
+        "4/13"
+      ],
+      "correctAnswer": "1/4",
+      "explanation": "13 hearts out of 52 = 1/4",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "math",
+      "skill": "probability",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "Two dice rolled. Probability sum is 7?",
+      "choices": [
+        "1/6",
+        "1/9",
+        "1/12",
+        "5/36"
+      ],
+      "correctAnswer": "1/6",
+      "explanation": "6 ways out of 36 = 1/6",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 60
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-main-idea",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "Passage on urbanization's effect on wildlife — primary purpose?",
+      "choices": [
+        "criticize development",
+        "explain urbanization's impact on wildlife",
+        "celebrate adaptation",
+        "compare rural and urban"
+      ],
+      "correctAnswer": "explain urbanization's impact on wildlife",
+      "explanation": "Both habitat loss and adaptation are covered.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-main-idea",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "Article on benefits of reading: improves vocabulary, empathy, and focus. Main idea?",
+      "choices": [
+        "Reading is fun",
+        "Reading has multiple cognitive and social benefits",
+        "Everyone should read more",
+        "Reading improves vocabulary"
+      ],
+      "correctAnswer": "Reading has multiple cognitive and social benefits",
+      "explanation": "The article covers multiple benefits.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-evidence",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "Claim: 'Remote work increases productivity.' Best supporting evidence?",
+      "choices": [
+        "Remote work is popular",
+        "A Stanford study found a 13% productivity increase",
+        "Many companies offer remote work",
+        "Employees prefer working from home"
+      ],
+      "correctAnswer": "A Stanford study found a 13% productivity increase",
+      "explanation": "Quantitative data directly supports the claim.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-vocabulary",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "\"Her tenacious pursuit of justice inspired many.\" Tenacious most nearly means —",
+      "choices": [
+        "relentless",
+        "angry",
+        "peaceful",
+        "confused"
+      ],
+      "correctAnswer": "relentless",
+      "explanation": "Tenacious means persistent or relentless.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-vocabulary",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "\"The austere room had only a chair and a desk.\" Austere most nearly means —",
+      "choices": [
+        "colorful",
+        "simple",
+        "expensive",
+        "messy"
+      ],
+      "correctAnswer": "simple",
+      "explanation": "Austere means severely simple or plain.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-vocabulary",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "\"Her perspicacious analysis revealed hidden patterns.\" Perspicacious most nearly means —",
+      "choices": [
+        "confusing",
+        "insightful",
+        "angry",
+        "careless"
+      ],
+      "correctAnswer": "insightful",
+      "explanation": "Perspicacious means having keen insight.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-inference",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "Late for the meeting, she grabbed her coat and rushed out. What can be inferred?",
+      "choices": [
+        "She quit her job",
+        "Time was running short",
+        "She was meeting friends",
+        "She forgot her keys"
+      ],
+      "correctAnswer": "Time was running short",
+      "explanation": "Rushing suggests urgency due to lateness.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "reading-inference",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "CEO: 'We are exploring strategic alternatives for our retail division.' Implies?",
+      "choices": [
+        "Expansion",
+        "Possible sale or restructuring",
+        "Division is profitable",
+        "New stores opening"
+      ],
+      "correctAnswer": "Possible sale or restructuring",
+      "explanation": "'Strategic alternatives' often means considering sale.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-grammar",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "'The team of researchers ___ conducting the study.'",
+      "choices": [
+        "are",
+        "is",
+        "were",
+        "have been"
+      ],
+      "correctAnswer": "is",
+      "explanation": "Subject is 'team' (singular).",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-grammar",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "'If I ___ you, I would study more.'",
+      "choices": [
+        "was",
+        "were",
+        "am",
+        "be"
+      ],
+      "correctAnswer": "were",
+      "explanation": "Subjunctive mood: 'were'",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-grammar",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "'The data ___ collected over five years.'",
+      "choices": [
+        "was",
+        "were",
+        "has",
+        "is being"
+      ],
+      "correctAnswer": "were",
+      "explanation": "'Data' is plural, takes 'were'.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-grammar",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "'He ___ to the park every Sunday.'",
+      "choices": [
+        "go",
+        "goes",
+        "going",
+        "gone"
+      ],
+      "correctAnswer": "goes",
+      "explanation": "Third person singular present tense.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-grammar",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "Which is correct? 'The book, along with the notes, ___ missing.'",
+      "choices": [
+        "are",
+        "is",
+        "were",
+        "have been"
+      ],
+      "correctAnswer": "is",
+      "explanation": "Subject is 'book' (singular), ignore 'along with'.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-style",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "Active voice: 'The experiment was conducted by the students.'",
+      "choices": [
+        "Original",
+        "The students conducted the experiment",
+        "The experiment, conducted by students",
+        "There was an experiment"
+      ],
+      "correctAnswer": "The students conducted the experiment",
+      "explanation": "Active: subject performs the action.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-style",
+      "subskill": null,
+      "difficulty": 3,
+      "questionText": "Consistent tense: 'She walked to the store and ___ milk.'",
+      "choices": [
+        "buys",
+        "bought",
+        "buying",
+        "will buy"
+      ],
+      "correctAnswer": "bought",
+      "explanation": "Both verbs should be past tense.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-style",
+      "subskill": null,
+      "difficulty": 2,
+      "questionText": "Concise: 'Due to the fact that it was raining, we canceled the picnic.'",
+      "choices": [
+        "Original",
+        "Because it rained, we canceled the picnic",
+        "It was raining so we canceled",
+        "Due to rain, we canceled"
+      ],
+      "correctAnswer": "Because it rained, we canceled the picnic",
+      "explanation": "'Because' replaces the wordy phrase.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-style",
+      "subskill": null,
+      "difficulty": 1,
+      "questionText": "Transition: 'She trained hard. ___, she won the race.'",
+      "choices": [
+        "However",
+        "As a result",
+        "On the other hand",
+        "Meanwhile"
+      ],
+      "correctAnswer": "As a result",
+      "explanation": "Training caused the win — cause and effect.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    },
+    {
+      "testType": "sat",
+      "section": "reading",
+      "skill": "writing-style",
+      "subskill": null,
+      "difficulty": 4,
+      "questionText": "Best transition: 'The plan was risky. ___, it succeeded beyond expectations.'",
+      "choices": [
+        "Moreover",
+        "Nevertheless",
+        "For example",
+        "In addition"
+      ],
+      "correctAnswer": "Nevertheless",
+      "explanation": "Contrast between risk and success.",
+      "conceptExplanation": null,
+      "formulaOrRule": null,
+      "underlyingConcept": null,
+      "commonMistakes": [],
+      "mistakeTypes": [
+        "careless"
+      ],
+      "estimatedTime": 75
+    }
+  ]
+}

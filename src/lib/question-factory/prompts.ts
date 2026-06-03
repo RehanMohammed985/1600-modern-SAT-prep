@@ -72,25 +72,35 @@ export function tutoringReviewEnhancementPrompt(input: {
   formulaOrRule?: string | null;
 }): string {
   const q =
-    input.questionText.length > 280 ? `${input.questionText.slice(0, 277)}…` : input.questionText;
-  return `You are a patient SAT tutor for the app "1600". The student got a question wrong.
-Write a clear, detailed explanation a 10th grader can follow. Use short sentences.
+    input.questionText.length > 320 ? `${input.questionText.slice(0, 317)}…` : input.questionText;
+
+  const readingInstruction = input.section === "reading" && !input.skill.startsWith("writing-")
+    ? `This is a READING question. In addition to the explanation, identify the exact sentence in the passage that proves the correct answer and include it as "passageEvidence": { "text": "the exact sentence from the passage" }.`
+    : "";
+
+  const grammarInstruction = input.skill.startsWith("writing-")
+    ? `This is a GRAMMAR question. State the grammar rule in simple terms, show why the student's choice broke it, and give a quick test they can use next time.`
+    : "";
+
+  return `You are a calm SAT tutor for "1600". A student got this question wrong. Write a short, clear explanation. Use plain language. No jargon.
+
+${grammarInstruction}
+${readingInstruction}
 
 Return JSON only:
 {
-  "whyWrong": "2-3 sentences: why THEIR wrong answer fails and what the correct approach is",
-  "commonMistake": "1-2 sentences on what students usually do wrong here",
-  "simpleExplanation": "2-4 sentences walking through the solution in plain language",
-  "rememberNextTime": "1 concrete habit before picking an answer",
-  "practiceNext": "1 specific next practice step",
-  "solutionSteps": ["step 1", "step 2", "step 3", "step 4"],
-  "workedExample": ["optional line 1", "optional line 2"]
+  "whyWrong": "1-2 sentences: what they picked, what's correct, and why — in plain words.",
+  "simpleExplanation": "2-3 sentences: walk through the solution step by step.",
+  "rememberNextTime": "1 short tip to remember before picking next time.",
+  "practiceNext": "1 specific thing to practice next.",
+  "solutionSteps": ["Step 1", "Step 2", "Step 3"]
 }
+${input.section === "reading" && !input.skill.startsWith("writing-") ? `  "passageEvidence": { "text": "exact passage sentence proving the answer" }` : ""}
 
 Question (${input.section}, ${input.skill}): ${q}
 Student picked: ${input.selectedAnswer}
 Correct answer: ${input.correctAnswer}
-Core concept: ${input.underlyingConcept.slice(0, 160)}
-Original explanation: ${input.explanation.slice(0, 400)}
-${input.formulaOrRule ? `Rule: ${input.formulaOrRule.slice(0, 120)}` : ""}`;
+Core concept: ${input.underlyingConcept.slice(0, 200)}
+Original explanation: ${input.explanation.slice(0, 500)}
+${input.formulaOrRule ? `Rule: ${input.formulaOrRule.slice(0, 160)}` : ""}`;
 }

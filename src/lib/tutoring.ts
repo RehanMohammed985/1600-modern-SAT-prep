@@ -27,7 +27,7 @@ export const GRADE_PATHS: Record<Grade, GradePathInfo> = {
   },
   "11th": {
     label: "11th grade — Main test prep",
-    summary: "Focused SAT/ACT prep, timed practice, signup guidance, and score growth.",
+    summary: "Focused SAT prep, timed practice, signup guidance, and score growth.",
     focus: ["Timed blocks", "Weak skills", "Test signup", "Score growth"],
   },
   "12th": {

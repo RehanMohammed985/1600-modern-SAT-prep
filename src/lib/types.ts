@@ -1,6 +1,6 @@
 export type Grade = "9th" | "10th" | "11th" | "12th";
 export type SatExperience = "never" | "practice" | "official";
-export type TestTrack = "sat" | "act" | "undecided";
+export type TestTrack = "sat" | "undecided";
 export type TestTimeline =
   | "not_sure"
   | "within_3_months"
@@ -16,6 +16,7 @@ export type MistakeType =
   | "timing"
   | "misread"
   | "vocabulary"
+  | "sign_error"
   | "setup_error";
 
 export type SessionPhase =
@@ -69,7 +70,7 @@ export type ReadingPassageMeta = {
 
 export type Question = {
   id: string;
-  testType: "sat" | "act" | "both";
+  testType: "sat";
   section: "math" | "reading";
   skill: string;
   subskill: string | null;
@@ -188,6 +189,7 @@ export const SKILL_LABELS: Record<string, string> = {
   "reading-vocabulary": "Vocabulary in context",
   "reading-inference": "Inference",
   "writing-grammar": "Grammar & sentences",
+  "writing-style": "Style & word choice",
 };
 
 export const MISTAKE_TYPE_LABELS: Record<MistakeType, string> = {
@@ -196,6 +198,7 @@ export const MISTAKE_TYPE_LABELS: Record<MistakeType, string> = {
   timing: "Timing issue",
   misread: "Misread the question",
   vocabulary: "Vocabulary issue",
+  sign_error: "Sign error",
   setup_error: "Setup error",
 };
 
